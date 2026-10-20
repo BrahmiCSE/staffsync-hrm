@@ -22,27 +22,51 @@ export default function Login() {
   };
 
   return (
-    <div className="row justify-content-center">
-      <div className="col-md-5">
-        <div className="card shadow-sm">
-          <div className="card-body p-4">
-            <h3 className="mb-1">StaffSync</h3>
-            <p className="text-muted">{isRegister ? 'Create an employee account' : 'Sign in to continue'}</p>
-            {error && <div className="alert alert-danger">{error}</div>}
-            <form onSubmit={submit}>
-              {isRegister && (
-                <input className="form-control mb-3" name="name" placeholder="Full name" value={form.name} onChange={change} required />
-              )}
-              <input className="form-control mb-3" type="email" name="email" placeholder="Email" value={form.email} onChange={change} required />
-              <input className="form-control mb-3" type="password" name="password" placeholder="Password (min 6 chars)" value={form.password} onChange={change} required minLength={6} />
-              <button className="btn btn-primary w-100">{isRegister ? 'Register' : 'Login'}</button>
-            </form>
-            <button className="btn btn-link mt-2 p-0" onClick={() => { setIsRegister(!isRegister); setError(''); }}>
-              {isRegister ? 'Already have an account? Login' : 'New employee? Register'}
-            </button>
-          </div>
+    <div className="auth">
+      <section className="auth-brand">
+        <div className="brand">
+          <span className="brand-mark" aria-hidden="true" />
+          StaffSync
         </div>
-      </div>
+        <div>
+          <h2>Everyone's work, kept in sync.</h2>
+          <p>Attendance, leave, training and company news for HR, managers and employees in one place.</p>
+        </div>
+      </section>
+
+      <section className="auth-form">
+        <form onSubmit={submit}>
+          <h1>{isRegister ? 'Create your account' : 'Sign in'}</h1>
+          <p className="lead-in">
+            {isRegister
+              ? 'New accounts start as employee accounts. HR can change your role later.'
+              : 'Use the email and password your HR team gave you.'}
+          </p>
+
+          {error && <div className="alert alert-danger" role="alert">{error}</div>}
+
+          {isRegister && (
+            <>
+              <label className="form-label" htmlFor="name">Full name</label>
+              <input id="name" className="form-control mb-3" name="name" value={form.name} onChange={change} required />
+            </>
+          )}
+          <label className="form-label" htmlFor="email">Email</label>
+          <input id="email" className="form-control mb-3" type="email" name="email" value={form.email} onChange={change} required />
+          <label className="form-label" htmlFor="password">Password</label>
+          <input id="password" className="form-control mb-4" type="password" name="password" value={form.password} onChange={change} required minLength={6} />
+
+          <button className="btn btn-primary w-100 py-2">{isRegister ? 'Create account' : 'Sign in'}</button>
+
+          <button
+            type="button"
+            className="btn btn-link mt-3 p-0"
+            onClick={() => { setIsRegister(!isRegister); setError(''); }}
+          >
+            {isRegister ? 'Have an account? Sign in' : 'New here? Create an account'}
+          </button>
+        </form>
+      </section>
     </div>
   );
 }
